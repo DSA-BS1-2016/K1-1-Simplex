@@ -1,0 +1,20 @@
+A tale of simplex - Von Papierschnipsel bis zum Dating
+
+ Skript:
+
+	- Einführung durch Physikalisches Beispiel
+		- Papier zusammenlegen
+	-> Dies zuerst einfach, danach jedoch mit absurder Komplexität.
+
+	- Aufzeigen des Linearen Systemes dahinter, sowie erklärung eines L.S. und evtl. Lösungsweg.
+	- Zeigen des Programmes des verwendet wird (Beispiel evtl. Army-Nahrung?)
+
+	- Übergang zum Matching 
+	-> Thomas zeigt sein Beispiel auf
+
+	- Übergang zum Simplex!
+	- Fragestellung: Wie lässt sich sowas am PC lösen?
+	- Vorstellung des Gauss (Sehr grob!)
+	- Vorstellung von Octave (Sombrero)
+
+	- Fragerunde
