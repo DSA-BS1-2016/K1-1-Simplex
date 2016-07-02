@@ -2,6 +2,26 @@ function M=ZSF(MI)
   M=gauss3(MI);
 endfunction
 
+
+function M=P_ij(i,j,n)
+  M=eye(n);
+  M(i,i)=0;
+  M(j,j)=0;
+  M(i,j)=1;
+  M(j,i)=1;
+endfunction
+
+function N=S_i(i,l,n)
+  N=eye(n);
+  N(i,i)=l;
+endfunction
+
+
+function N=Q_ijl(i,j,l,n)
+  N=eye(n);
+  N(i,j)=l;
+endfunction
+
 function w=check_column_empty(MI,j)
   w=ones(1,rows(MI))*MI(1:rows(MI),j)==0;
 endfunction
@@ -59,7 +79,6 @@ endfunction
 function [N,MO]=gauss2(MI)
   j=find_first_column_not_empty(MI);
   n=find_first_not_0(MI,j); 
-  j,n;
   if(n!=1)
     MI=P_ij(1,n,rows(MI))*MI;
   endif
