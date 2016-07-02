@@ -4,9 +4,9 @@ function w=check_column_empty(MI,j)
   w=ones(1,rows(MI))*MI(1:rows(MI),j)==0;
 endfunction
 
-function i=find_first_not_0(MI,j,cr)
+function i=find_first_not_0(MI,j)
   found=false;
-  for i=cr:rows(MI)
+  for i=1:rows(MI)
     if(MI(i,j)!=0)
       found=true;
       break
@@ -20,9 +20,9 @@ function i=find_first_not_0(MI,j,cr)
   i=i;
 endfunction
 
-function  j=find_first_column_not_empty(MI,cc)
+function  j=find_first_column_not_empty(MI)
   found=false;
-  for j=cc:columns(MI)
+  for j=1:columns(MI)
     if(check_column_empty(MI,j)==false)
       found=true;
       break
@@ -40,7 +40,7 @@ function M=eliminate(MI,m2,m,j)
   M=Q_ijl(m2,m,lambda,rows(MI))*MI;
 endfunction
 
-function M=eliminate_col(MI,j,cr)
+function M=eliminate_col(MI,j)
   M=MI;
   MI(1,j);
   if(MI(1,j)!=0)
@@ -54,21 +54,30 @@ function M=eliminate_col(MI,j,cr)
   M=MI;
 endfunction
 
-function N=gauss2(MI,cr,cc)
-  j=find_first_column_not_empty(MI,cc);
-  n=find_first_not_0(MI,j,cr); 
+function [N,MO]=gauss2(MI)
+  j=find_first_column_not_empty(MI)
+  n=find_first_not_0(MI,j) 
   j,n
-  if(n!=1)
-    MI=P_ij(1,n,rows(MI))*MI
+  if(n>1)
+    MI=P_ij(1,n,rows(MI))*MI;
   endif
-  MI=eliminate_col(MI,j,cr,cc);
-  M=MI;
-  N=M(2:rows(M),j+1:columns(M));
+  MI=eliminate_col(MI,j);
+  MO=MI
+  N=MI
+  N=MI(2:rows(MI),j+1:columns(MI));
   
  endfunction
 
-function N=gauss3(MI)
-  
+function E=gauss3(MI)
+  N=MI;
+  B=MI;
+  E=zeros(size(MI));
+  while rows(B)>0
+    [N,B]=gauss2(N)
+    E=E+extend_NtoB((B-extend_NtoB(N,B)),MI);
+  endwhile
 endfunction
 
-
+function K=extend_NtoB(N,B)
+  K=[zeros(rows(B)-rows(N),columns(B));[zeros(rows(N),columns(B)-columns(N)),N]];
+endfunction
